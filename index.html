@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>여행 준비물 최종 점검 | 짐 다 챙겼어?</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-background">
+    <div class="glow-orb glow-1"></div>
+    <div class="glow-orb glow-2"></div>
+    <div class="glow-orb glow-3"></div>
+  </div>
+
+  <main class="main-wrapper">
+    <!-- 카드 컨테이너 -->
+    <div class="checklist-card" id="mainCard">
+
+      <!-- 1. 시작 화면 -->
+      <section class="screen active" id="screen-start">
+        <div class="screen-header">
+          <div class="badge-pill">✈️ 출발 전 필수 코스</div>
+          <h1 class="main-title">여행 준비물<br><span class="highlight-text">최종 체크</span></h1>
+          <p class="subtitle">진짜 다 챙겼는지 양심에 손을 얹고 대답해보자.</p>
+        </div>
+
+        <div class="start-hero-graphic">
+          <div class="luggage-icon-wrap">
+            <span class="luggage-emoji">🧳</span>
+            <div class="floating-bubble bubble-1">👗 옷</div>
+            <div class="floating-bubble bubble-2">🪥 칫솔</div>
+            <div class="floating-bubble bubble-3">💳 지갑</div>
+          </div>
+        </div>
+
+        <div class="action-footer">
+          <button type="button" class="btn btn-primary btn-large" id="btn-start">
+            <span>체크 시작하기</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <p class="start-hint">소요시간 약 30초 · 8개 질문</p>
+        </div>
+      </section>
+
+
+      <!-- 2. 질문 진행 화면 (Q1 ~ Q8) -->
+      <section class="screen" id="screen-question">
+        <!-- 상단 헤더: 진행도 및 프로그레스 바 -->
+        <div class="progress-container">
+          <div class="progress-info">
+            <span class="step-tag">CHECKLIST</span>
+            <span class="progress-counter" id="progress-text">1 / 8</span>
+          </div>
+          <div class="progress-bar-track" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="8" aria-label="진행도">
+            <div class="progress-bar-fill" id="progress-bar"></div>
+          </div>
+        </div>
+
+        <!-- 질문 화면 내내 화면 중앙에 노출되는 두번째 첨부 이미지 (사랑의 매) -->
+        <div class="question-media-zone">
+          <div class="media-frame">
+            <img 
+              src="images/second_image.png" 
+              alt="엄마의 사랑의 매" 
+              class="question-character-img"
+              id="question-img"
+            >
+            <div class="stick-label">사랑의 매 준비 완료</div>
+          </div>
+        </div>
+
+        <!-- 중앙 질문 텍스트 -->
+        <div class="question-content-box">
+          <span class="question-number" id="q-number">Q1</span>
+          <h2 class="question-title" id="q-text">가서 입을 옷 챙겼어?</h2>
+        </div>
+
+        <!-- 3개 선택지 버튼 영역 -->
+        <div class="options-group">
+          <button type="button" class="btn-option btn-opt-yes" id="btn-opt-yes" data-answer="yes">
+            <div class="opt-indicator">
+              <span class="opt-icon">⭕</span>
+            </div>
+            <span class="opt-label">예</span>
+          </button>
+
+          <button type="button" class="btn-option btn-opt-no" id="btn-opt-no" data-answer="no">
+            <div class="opt-indicator">
+              <span class="opt-icon">❌</span>
+            </div>
+            <span class="opt-label">아니오</span>
+          </button>
+
+          <button type="button" class="btn-option btn-opt-skip" id="btn-opt-skip" data-answer="skip">
+            <div class="opt-indicator">
+              <span class="opt-icon">💬</span>
+            </div>
+            <span class="opt-label">없어도 괜찮습니다</span>
+          </button>
+        </div>
+      </section>
+
+
+      <!-- 3. 결과 CASE 1: 히든 페이지 (없어도 괜찮습니다 올클리어) -->
+      <section class="screen" id="screen-case1">
+        <div class="case1-container">
+          <div class="poop-emoji-wrapper">
+            <span class="giant-poop-emoji" role="img" aria-label="똥">💩</span>
+          </div>
+          <h2 class="result-title">아무것도 없어도 괜찮다고?!</h2>
+          <p class="result-desc">무소유를 넘어선 무대책의 경지...<br>이러다 빈손으로 쫓겨납니다.</p>
+
+          <div class="action-footer">
+            <button type="button" class="btn btn-secondary btn-large" id="btn-case1-restart">
+              <span>처음으로</span>
+              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- 3. 결과 CASE 2: 준비 누락 및 초기화 페이지 (아니오 1개 이상) -->
+      <section class="screen" id="screen-case2">
+        <div class="case2-container">
+          <!-- 첫번째로 첨부한 이미지 (깡!) -->
+          <div class="hammer-image-wrapper">
+            <div class="impact-burst"></div>
+            <img 
+              src="images/first_image.png" 
+              alt="깡! 혼나는 중" 
+              class="result-hammer-img"
+              id="hammer-img"
+            >
+          </div>
+
+          <div class="missing-notice-header">
+            <h2 class="result-title text-danger">깡! 챙기고 가야지!</h2>
+            <p class="result-desc">아래 물건들을 아직 안 챙겼습니다:</p>
+          </div>
+
+          <!-- 누락된 아이템 리스트 -->
+          <div class="missing-items-box">
+            <ul class="missing-items-list" id="missing-items-list">
+              <!-- JS로 동적 삽입 -->
+            </ul>
+          </div>
+
+          <!-- 3초 카운트다운 타이머 바 및 안내 -->
+          <div class="auto-redirect-box">
+            <div class="timer-gauge-track">
+              <div class="timer-gauge-fill" id="timer-gauge"></div>
+            </div>
+            <p class="timer-text">
+              <span id="countdown-number">3</span>초 후 시작 화면으로 돌아갑니다...
+            </p>
+          </div>
+
+          <div class="action-footer">
+            <button type="button" class="btn btn-danger btn-large" id="btn-case2-restart">
+              <span>다시하기</span>
+              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- 3. 결과 CASE 3: 최종 완료 페이지 (아니오 0개 & skip < 8개) -->
+      <section class="screen" id="screen-case3">
+        <div class="case3-container">
+          <!-- 축하 캔버스 / 파티클 -->
+          <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+          <div class="success-badge-wrap">
+            <div class="green-check-icon">
+              <span class="check-emoji" role="img" aria-label="초록색 체크">✅</span>
+            </div>
+            <div class="pulse-ring"></div>
+          </div>
+
+          <h1 class="success-main-text">가자.</h1>
+          <p class="result-desc">준비 완료! 즐겁고 안전한 여행 되세요 🎉</p>
+
+          <div class="success-summary-box">
+            <div class="summary-chip">완벽 패킹 달성 ✨</div>
+          </div>
+
+          <div class="action-footer">
+            <button type="button" class="btn btn-primary btn-large" id="btn-case3-restart">
+              <span>처음으로</span>
+              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
