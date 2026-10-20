@@ -2,6 +2,9 @@
 
 > "엄마의 사랑의 매(?)와 함께하는 본격 여행 준비물 최종 점검 웹 페이지"
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fekdha12000-dev%2Ftravel-checklist)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-brightgreen)](https://ekdha12000-dev.github.io/travel-checklist/)
+
 ![엄마의 사랑의 매](images/second_image.png)
 
 ## 📌 프로젝트 소개
