@@ -3,212 +3,180 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>여행 준비물 최종 점검 | 짐 다 챙겼어?</title>
+  <title>비키니시티 정류장 | 코끼리물범의 영화 추천</title>
+  <meta name="description" content="버스를 기다리며 우연히 마주친 코끼리물범이 들려주는 비주얼노벨 감성 영화 추천 서비스">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app-background">
-    <div class="glow-orb glow-1"></div>
-    <div class="glow-orb glow-2"></div>
-    <div class="glow-orb glow-3"></div>
+  <!-- 전체 배경 애니메이션 (해저 그라디언트 및 심해 오라) -->
+  <div class="underwater-bg-fx">
+    <div class="ocean-light-beam light-1"></div>
+    <div class="ocean-light-beam light-2"></div>
+    <div class="ocean-particles"></div>
   </div>
 
-  <main class="main-wrapper">
-    <!-- 카드 컨테이너 -->
-    <div class="checklist-card" id="mainCard">
-
-      <!-- 1. 시작 화면 -->
-      <section class="screen active" id="screen-start">
-        <div class="screen-header">
-          <div class="badge-pill">✈️ 출발 전 필수 코스</div>
-          <h1 class="main-title">여행 준비물<br><span class="highlight-text">최종 체크</span></h1>
-          <p class="subtitle">진짜 다 챙겼는지 양심에 손을 얹고 대답해보자.</p>
-        </div>
-
-        <div class="start-hero-graphic">
-          <div class="luggage-icon-wrap">
-            <span class="luggage-emoji">🧳</span>
-            <div class="floating-bubble bubble-1">👗 옷</div>
-            <div class="floating-bubble bubble-2">🪥 칫솔</div>
-            <div class="floating-bubble bubble-3">💳 지갑</div>
+  <div class="app-layout">
+    <!-- 1. 상단 내비게이션 및 헤더 바 -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="bus-stop-badge">
+          <span class="sign-emoji">🚏</span>
+          <div class="bus-stop-text">
+            <h1 class="header-title">비키니시티 104번 버스 정류장</h1>
+            <p class="header-sub">코끼리물범과 함께하는 비주얼노벨 영화 추천</p>
           </div>
         </div>
+      </div>
 
-        <div class="action-footer">
-          <button type="button" class="btn btn-primary btn-large" id="btn-start">
-            <span>체크 시작하기</span>
-            <svg class="btn-arrow" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-          <p class="start-hint">소요시간 약 30초 · 8개 질문</p>
+      <div class="header-center">
+        <div class="bus-status-pill" id="busStatusPill">
+          <span class="status-dot pulsing"></span>
+          <span>104번 버스: <strong>도착 정보 없음</strong> (무기한 대기)</span>
         </div>
-      </section>
+      </div>
 
+      <div class="header-right">
+        <!-- 사운드 토글 버튼 -->
+        <button type="button" class="btn-top sound-toggle" id="btnSound" aria-label="효과음 켜기/끄기">
+          <span class="icon" id="soundIcon">🔊</span>
+          <span class="btn-text" id="soundLabel">효과음 ON</span>
+        </button>
 
-      <!-- 2. 질문 진행 화면 (Q1 ~ Q8) -->
-      <section class="screen" id="screen-question">
-        <!-- 상단 헤더: 진행도 및 프로그레스 바 -->
-        <div class="progress-container">
-          <div class="progress-info">
-            <span class="step-tag">CHECKLIST</span>
-            <span class="progress-counter" id="progress-text">1 / 8</span>
-          </div>
-          <div class="progress-bar-track" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="8" aria-label="진행도">
-            <div class="progress-bar-fill" id="progress-bar"></div>
-          </div>
-        </div>
+        <!-- 상단 고정 랜덤 추천 CTA -->
+        <button type="button" class="btn-top btn-random-glow" id="btnRandom">
+          <span class="icon">🎲</span>
+          <span class="btn-text">아무거나 골라줘!</span>
+        </button>
+      </div>
+    </header>
 
-        <!-- 질문 화면 내내 화면 중앙에 노출되는 두번째 첨부 이미지 (사랑의 매) -->
-        <div class="question-media-zone">
-          <div class="media-frame">
-            <img 
-              src="images/second_image.png" 
-              alt="엄마의 사랑의 매" 
-              class="question-character-img"
-              id="question-img"
-            >
-            <div class="stick-label">사랑의 매 준비 완료</div>
-          </div>
-        </div>
+    <!-- 2. 장르 분류 탭 바 -->
+    <nav class="genre-bar-container" aria-label="영화 장르 분류">
+      <div class="genre-tabs-wrapper">
+        <button type="button" class="genre-tab active" data-genre="all">
+          <span class="g-emoji">✨</span>
+          <span class="g-name">전체 장르</span>
+          <span class="g-count">23</span>
+        </button>
+        <button type="button" class="genre-tab" data-genre="sf">
+          <span class="g-emoji">🚀</span>
+          <span class="g-name">SF · 판타지</span>
+          <span class="g-count">4</span>
+        </button>
+        <button type="button" class="genre-tab" data-genre="action">
+          <span class="g-emoji">💥</span>
+          <span class="g-name">액션 · 모험</span>
+          <span class="g-count">4</span>
+        </button>
+        <button type="button" class="genre-tab" data-genre="animation">
+          <span class="g-emoji">🎨</span>
+          <span class="g-name">애니메이션</span>
+          <span class="g-count">4</span>
+        </button>
+        <button type="button" class="genre-tab" data-genre="drama">
+          <span class="g-emoji">🎭</span>
+          <span class="g-name">드라마 · 명작</span>
+          <span class="g-count">3</span>
+        </button>
+        <button type="button" class="genre-tab" data-genre="romance">
+          <span class="g-emoji">💖</span>
+          <span class="g-name">로맨스 · 멜로</span>
+          <span class="g-count">3</span>
+        </button>
+        <button type="button" class="genre-tab" data-genre="thriller">
+          <span class="g-emoji">😱</span>
+          <span class="g-name">스릴러 · 미스터리</span>
+          <span class="g-count">3</span>
+        </button>
+        <button type="button" class="genre-tab" data-genre="comedy">
+          <span class="g-emoji">🤣</span>
+          <span class="g-name">코미디 · 힐링</span>
+          <span class="g-count">2</span>
+        </button>
+      </div>
+    </nav>
 
-        <!-- 중앙 질문 텍스트 -->
-        <div class="question-content-box">
-          <span class="question-number" id="q-number">Q1</span>
-          <h2 class="question-title" id="q-text">가서 입을 옷 챙겼어?</h2>
-        </div>
+    <!-- 3. 메인 게임/비주얼노벨 스테이지 -->
+    <main class="game-stage-wrapper">
+      <div class="stage-frame">
+        <div class="stage-container idle-mode" id="stageContainer">
 
-        <!-- 3개 선택지 버튼 영역 -->
-        <div class="options-group">
-          <button type="button" class="btn-option btn-opt-yes" id="btn-opt-yes" data-answer="yes">
-            <div class="opt-indicator">
-              <span class="opt-icon">⭕</span>
+          <!-- 배경 1: 평상시 대화 모드 (첫 번째 첨부 이미지: idle_bench_seal.png) -->
+          <div class="stage-bg bg-idle active" id="bgIdle" title="클릭하여 코끼리물범과 대화하기">
+            <div class="idle-click-hint">
+              <span class="hint-icon">👆</span> 물범을 클릭하면 속마음을 들을 수 있어요
             </div>
-            <span class="opt-label">예</span>
-          </button>
-
-          <button type="button" class="btn-option btn-opt-no" id="btn-opt-no" data-answer="no">
-            <div class="opt-indicator">
-              <span class="opt-icon">❌</span>
-            </div>
-            <span class="opt-label">아니오</span>
-          </button>
-
-          <button type="button" class="btn-option btn-opt-skip" id="btn-opt-skip" data-answer="skip">
-            <div class="opt-indicator">
-              <span class="opt-icon">💬</span>
-            </div>
-            <span class="opt-label">없어도 괜찮습니다</span>
-          </button>
-        </div>
-      </section>
-
-
-      <!-- 3. 결과 CASE 1: 히든 페이지 (없어도 괜찮습니다 올클리어) -->
-      <section class="screen" id="screen-case1">
-        <div class="case1-container">
-          <div class="poop-emoji-wrapper">
-            <span class="giant-poop-emoji" role="img" aria-label="똥">💩</span>
           </div>
-          <h2 class="result-title">아무것도 없어도 괜찮다고?!</h2>
-          <p class="result-desc">무소유를 넘어선 무대책의 경지...<br>이러다 빈손으로 쫓겨납니다.</p>
 
-          <div class="action-footer">
-            <button type="button" class="btn btn-secondary btn-large" id="btn-case1-restart">
-              <span>처음으로</span>
-              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
-                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-                <path d="M3 3v5h5"/>
-              </svg>
-            </button>
+          <!-- 배경 2: 영화 소개 모드 (두 번째 첨부 이미지: 빈 벤치 bg_bench_empty.jpg) -->
+          <div class="stage-bg bg-empty" id="bgEmpty"></div>
+
+          <!-- 해저 물방울 파티클 레이어 -->
+          <div class="bubble-layer" id="bubbleLayer"></div>
+
+          <!-- 캐릭터 스프라이트 (세 번째 첨부 이미지: seal_sprite.png) -->
+          <div class="seal-actor bench-position hidden" id="sealActor" role="button" tabindex="0" aria-label="코끼리물범 캐릭터">
+            <div class="seal-img-wrapper">
+              <img 
+                src="images/seal_sprite.png" 
+                alt="기다리는 코끼리물범" 
+                class="seal-sprite-img"
+                id="sealImg"
+              >
+            </div>
+            <!-- 캐릭터 머리 위 실시간 말풍선 -->
+            <div class="seal-speech-bubble" id="sealFloatBubble">
+              <span id="sealFloatText">영차! 옆으로 비켜줬다!</span>
+            </div>
+          </div>
+
+          <!-- 화면 중앙: 영화 포스터 및 줄거리 쇼케이스 카드 -->
+          <div class="movie-showcase" id="movieShowcase" aria-live="polite">
+            <!-- app.js에서 동적으로 생성 및 애니메이션 -->
           </div>
         </div>
-      </section>
 
-
-      <!-- 3. 결과 CASE 2: 준비 누락 및 초기화 페이지 (아니오 1개 이상) -->
-      <section class="screen" id="screen-case2">
-        <div class="case2-container">
-          <!-- 첫번째로 첨부한 이미지 (깡!) -->
-          <div class="hammer-image-wrapper">
-            <div class="impact-burst"></div>
-            <img 
-              src="images/first_image.png" 
-              alt="깡! 혼나는 중" 
-              class="result-hammer-img"
-              id="hammer-img"
-            >
-          </div>
-
-          <div class="missing-notice-header">
-            <h2 class="result-title text-danger">깡! 챙기고 가야지!</h2>
-            <p class="result-desc">아래 물건들을 아직 안 챙겼습니다:</p>
-          </div>
-
-          <!-- 누락된 아이템 리스트 -->
-          <div class="missing-items-box">
-            <ul class="missing-items-list" id="missing-items-list">
-              <!-- JS로 동적 삽입 -->
-            </ul>
-          </div>
-
-          <!-- 3초 카운트다운 타이머 바 및 안내 -->
-          <div class="auto-redirect-box">
-            <div class="timer-gauge-track">
-              <div class="timer-gauge-fill" id="timer-gauge"></div>
+        <!-- 4. 하단 비주얼노벨 대화창 (Visual Novel Dialogue Box) -->
+        <section class="vn-dialogue-window" id="vnDialogueBox" aria-label="비주얼노벨 대화창">
+          <div class="vn-box-header">
+            <div class="speaker-pill" id="speakerBadge">
+              <span class="seal-avatar-mini">🦭</span>
+              <span class="speaker-name" id="speakerName">기다리는 코끼리물범</span>
+              <span class="speaker-tag">비키니시티 정류장 터줏대감</span>
             </div>
-            <p class="timer-text">
-              <span id="countdown-number">3</span>초 후 시작 화면으로 돌아갑니다...
+            <div class="skip-hint">대화창 클릭 시 스킵 ⏩</div>
+          </div>
+
+          <div class="vn-box-body">
+            <p class="dialogue-text-content" id="dialogueText">
+              <!-- 타이핑 텍스트가 출력되는 위치 -->
             </p>
+            <span class="typing-cursor"></span>
+            <span class="advance-arrow" id="advanceArrow" aria-hidden="true">▼</span>
           </div>
 
-          <div class="action-footer">
-            <button type="button" class="btn btn-danger btn-large" id="btn-case2-restart">
-              <span>다시하기</span>
-              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
-                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-                <path d="M3 3v5h5"/>
-              </svg>
-            </button>
+          <!-- 대화창 하단 선택지 / 인터랙션 버튼 영역 -->
+          <div class="vn-box-choices" id="dialogueChoices">
+            <!-- app.js에서 상태에 따라 동적으로 버튼 렌더링 -->
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
+    </main>
 
-
-      <!-- 3. 결과 CASE 3: 최종 완료 페이지 (아니오 0개 & skip < 8개) -->
-      <section class="screen" id="screen-case3">
-        <div class="case3-container">
-          <!-- 축하 캔버스 / 파티클 -->
-          <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
-
-          <div class="success-badge-wrap">
-            <div class="green-check-icon">
-              <span class="check-emoji" role="img" aria-label="초록색 체크">✅</span>
-            </div>
-            <div class="pulse-ring"></div>
-          </div>
-
-          <h1 class="success-main-text">가자.</h1>
-          <p class="result-desc">준비 완료! 즐겁고 안전한 여행 되세요 🎉</p>
-
-          <div class="success-summary-box">
-            <div class="summary-chip">완벽 패킹 달성 ✨</div>
-          </div>
-
-          <div class="action-footer">
-            <button type="button" class="btn btn-primary btn-large" id="btn-case3-restart">
-              <span>처음으로</span>
-              <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
-                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-                <path d="M3 3v5h5"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </main>
+    <!-- 5. 하단 풋터 -->
+    <footer class="app-footer">
+      <p class="footer-copy">
+        🎬 비키니시티 버스 정류장에서 펼쳐지는 코끼리물범의 명작 영화 추천소 · 
+        <span class="footer-tag">Visual Novel Interactive Web</span>
+      </p>
+    </footer>
+  </div>
 
   <script src="app.js"></script>
 </body>
